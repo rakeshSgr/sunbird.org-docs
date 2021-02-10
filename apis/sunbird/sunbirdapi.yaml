@@ -1,0 +1,3036 @@
+openapi: 3.0.1
+info:
+  title: Sunbird Service API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: >-
+    - The Sunrdb Service is intermediate service to access the sunbird service api's. Apis perform operations related to user management, organisation management and learning resources etc 
+    
+    - The URL for sunbird service API(s) is `sunbird/api`
+
+    - <b>Note:</b> These resources can be used in other services 
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://staging.open-sunbird.org/sunbird/api
+  variables: {}
+paths: 
+  /v1/users/activate:
+    post:
+      tags:
+      - Activate user
+      summary: To activate user
+      description: This api is used for to activate the user
+           - The endpoint for **user activate  V1** is `/users/activate`  
+      operationId: To Activate User
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the userId
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userActive"
+      responses:
+        200:
+          description: "User activate information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userActiveResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userActivate400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/users/inactivate:
+    post:
+      tags:
+      - InActivate user
+      summary: To in-activate user
+      description: This api is used for to in-activate the user
+           - The endpoint for **user in-activate  V1** is `/users/inactivate`  
+      operationId: To in-activate User
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the userId
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userInActive"
+      responses:
+        200:
+          description: "User InActivate Response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userInActiveResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userInActivate400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/users/addUserToOrganisation:
+    post:
+      tags:
+      - Add user to the organisation
+      summary: To add user to the organisation
+      description: This api is used for add user to the organisation
+           - The endpoint for **user add user to organisation  V1** is `/users/addUserToOrganisation`  
+      operationId: Add User To Organisation
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the userId,organisationId and roles
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/addUserToOrganisationRequest"
+      responses:
+        200:
+          description: "Add organisation response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addUserToOrganisationResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addUserToOrganisation400'
+        
+      deprecated: false
+      security:
+        - bearer: []        
+  /v1/users/create:
+    post:
+      tags:
+      - Create user
+      summary: create user account
+      description: This api is used for create user in sunbird platform
+           - The endpoint for **user create V1** is `/users/create`  
+      operationId: create user
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the firstName,lastName,email,organisation,dateofbirth,roles and userName
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createUserRequest"
+      responses:
+        200:
+          description: "Create user"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createUserResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createUser400'
+        
+      deprecated: false
+      security:
+        - bearer: []        
+  /v1/users/getProfile:
+    get:
+      tags:
+      - User profile
+      summary: Get user profile information
+      description: This api is used for to get the user profile infomration like first name, last name and etc
+           - The endpoint for **User get profile V1** is `/users/getProfile`  
+      operationId: get user profile
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: userId
+          required: true
+          description: authenticated user id
+          schema:
+            type: string
+      
+      responses:
+        200:
+          description: "profile information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getProfileResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getProfile400'
+        
+      deprecated: false
+      security:
+        - bearer: []                
+  /v1/token/verify:
+    post:
+      tags:
+      - To verify the token 
+      summary: To verify the access token
+      description: This api is used for to verify the user access token
+           - The endpoint for **User token verify V1** is `/token/verify`  
+      operationId: verify token
+      parameters:
+        - name: internal-access-token
+          in: header
+          description: Represents the token to access the api.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/verifyRequest"
+       
+      responses:
+        200:
+          description: "token nformation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/verifyResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/verify400'
+        
+      deprecated: false
+      security:
+        - bearer: []                
+  /v1/roles/list:
+    get:
+      tags:
+      - To get platform roles 
+      summary: To get platform roles available
+      description: This api is used for to get platform roles
+           - The endpoint for **User roles list V1** is `/roles/list`  
+      operationId: platform roles
+      parameters:
+        - name: internal-access-token
+          in: header
+          description: Represents the token to access the api.
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: page
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: limit
+          schema:
+            type: string        
+      responses:
+        200:
+          description: "User roles information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listRoles'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listRoles400'
+        
+      deprecated: false
+      security:
+        - bearer: []                
+  /v1/qr-code/pdf:
+    post:
+      tags:
+      - Get qr code pdfs.
+      summary: To get qr code pdfs 
+      description: This api is used for to generate the qr codes
+           - The endpoint for **Qr code V1** is `/qr-code/pdf`  
+      operationId: qrcode-pdf
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the qr-code
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/qrcodeRequest"
+      responses:
+        200:
+          description: "qr code details"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/qrcodeResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/qrcode400'
+        
+      deprecated: false
+      security:
+        - bearer: []                
+  /v1/qr-code/image/{uniquecode}:
+    post:
+      tags:
+      - Get qr-code image link
+      summary: Get the image link of the qr code
+      description: This api is used for to generate the qr codes
+           - The endpoint for **Qr code image V1** is `/qr-code/image`  
+      operationId: qr-code image link
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: uniquecode
+          required: true
+          description: unique qr code
+          schema:
+            type: string
+      
+      responses:
+        200:
+          description: "qr code details"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/qrCodeImage'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/qrCodeImage400'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/organisations/assignRoles :
+    post:
+      tags:
+      - Assign orgnisation roles to a user
+      summary: assign roles to user for the given organisation
+      description: This api is used assign a roles to user for the given organisation
+           - The endpoint for **Organisation assign roles  V1** is `/organisations/assignRoles` 
+      operationId: assign roles
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: internal-access-token
+          in: header
+          description: Represents the token to access the api.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the organisationId,userId and roles
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/assignRolesToOrganisationRequest"
+      responses:
+        200:
+          description: "Assign orgnisation roles to a user"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/assignRolesToOrganisationResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/assignRolesToOrganisation400'
+        
+      deprecated: false
+      security:
+        - bearer: []        
+  /v1/organisations/create:
+    post:
+      tags:
+      - Create organisation
+      summary: create organisation
+      description: This api is used to create a organisation
+           - The endpoint for **Organisation create** is `/organisations/create` 
+      operationId: create organisation
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: internal-access-token
+          in: header
+          description: Represents the token to access the api.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the description,externalId,name,email and address
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/organisationCreateRequest"
+      responses:
+        200:
+          description: "organisation information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationCreateResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationCreate400'
+        
+      deprecated: false
+      security:
+        - bearer: []        
+  /v1/organisations/details/{organisationId}:
+    get:
+      tags:
+      - Organisation details
+      summary: Get organisation details
+      description: This api is used to get the organisation details
+           - The endpoint for **Organisation details** is `/organisations/details` 
+      operationId: get organisation details
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: organisationId
+          required: true
+          description: organisation id
+          schema:
+            type: string
+
+      responses:
+        200:
+          description: "organisation details"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationDetailsResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationDetails400'
+        
+      deprecated: false
+      security:
+        - bearer: []        
+  /v1/organisations/list:
+    get:
+      tags:
+      - Organisations list
+      summary: to get list of organisations
+      description: This api is used to get a organisation list
+           - The endpoint for **Organisation list** is `/organisations/list` 
+      operationId: organisation list
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: page
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: limit
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: status
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: search
+          schema:
+            type: string               
+      responses:
+        200:
+          description: "organisations information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationListResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationList400'
+        
+      deprecated: false
+      security:
+        - bearer: []          
+  /v1/organisations/users:
+    post:
+      tags:
+      - Organisation user
+      summary: To get users of the organisations
+      description: This api is used to get a list of users of the organisation
+           - The endpoint for **Organisation users** is `/organisations/users` 
+      operationId: organisation users list
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: page
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: limit
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: status
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the organisationId and array of userIds
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/organisationUsersRequest"            
+            
+      responses:
+        200:
+          description: "organisation information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationUsersResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationUsers400'
+        
+      deprecated: false
+      security:
+        - bearer: []          
+  /v1/organisations/activate/{_id}:
+    get:
+      tags:
+      - To activate organisation
+      summary: To activate organisation
+      description: This api is used to activate organisation
+           - The endpoint for **Organisation Activate** is `/organisations/activate` 
+      operationId: activate organisation
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: _id
+          in: path
+          description: organisation id
+          required: true
+          schema:
+            type: string
+              
+      responses:
+        200:
+          description: "organisation activation information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationActivateResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationActivate400'
+        
+      deprecated: false
+      security:
+        - bearer: []          
+  /v1/organisations/deactivate/{_id}:
+    get:
+      tags:
+      - To deactivate organisation
+      summary: To deactivate organisation
+      description: This api is used to deactivate organisation
+           - The endpoint for **Organisation deactivate** is `/organisations/deactivate` 
+      operationId: deactivate organisation
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: _id
+          in: path
+          description: organisation id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "organisation deactivate information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationDeactivateResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationDeactivate400'
+        
+      deprecated: false
+      security:
+        - bearer: []          
+  /v1/organisations/removeUser:
+    post:
+      tags:
+      - Remove user from the organisation
+      summary: To remove User from organisation
+      description: This api is used to remove user from a perticular organisation
+           - The endpoint for **Organisation removeUser** is `/organisations/removeUser` 
+      operationId: remove user from organisation
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the organisationId and userid
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/organisationRemoveUserRequest"
+      responses:
+        200:
+          description: "organisation remove user"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationRemoveUserResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationRemoveUser400'
+        
+      deprecated: false
+      security:
+        - bearer: []          
+  /v1/organisations/update:
+    post:
+      tags:
+      - Update organisation details
+      summary: To Update organisation details
+      description: This api is used to update organisation
+           - The endpoint for **Organisation update details** is `/organisations/update` 
+      operationId: Organisation Update
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the name,email,description,externalId and organisationId
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/organisationUpdateRequest"
+      responses:
+        200:
+          description: "organisation update response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationUpdateResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisationUpdate400'
+        
+      deprecated: false
+      security:
+        - bearer: []          
+  /v1/learningResources/filtersList:
+    get:
+      tags:
+      - Get learning resource filters
+      summary: To get filters list of learning resources
+      description: This api is used to get a filters of learning resource
+           - The endpoint for **learningResources filtersList** is `/learningResources/filtersList` 
+      operationId: learning resource filters
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: internal-access-token
+          in: header
+          description: Represents the token to access the api.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "filters information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filtersListResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filtersList400'
+        
+      deprecated: false
+      security:
+        - bearer: []                  
+  /v1/learningResources/list:
+    post:
+      tags:
+      - Learning resource list
+      summary: To get list of learning resources
+      description: This api is used to get a learning list
+           - The endpoint for **learningResources list** is `/learningResources/list` 
+      operationId: Learning resource list
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: page
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: limit
+          schema:
+            type: string
+        - name: sortBy
+          in: query
+          description: sort by
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: search
+          schema:
+            type: string     
+      
+      requestBody:
+        description: >-
+            - The body payload comprises of the filters
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/learningResourceRequest"            
+      responses:
+        200:
+          description: "learning resource list"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/learningResourceResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/learningResource400'
+        
+      deprecated: false
+      security:
+        - bearer: []                  
+  /v1/keycloak/generateToken:
+    post:
+      tags:
+      - Get Keycloak token
+      summary: To genearte keyclock token
+      description: This api is used to get keycloak token using user credentials
+           - The endpoint for **Keycloak generate token** is `/keycloak/generateToken` 
+      operationId: generate token
+      parameters:
+        - name: internal-access-token
+          in: header
+          description: Represents the token to access the api.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the username and password
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/generateTokenRequest"            
+      responses:
+        200:
+          description: "Token information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generateTokenResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/generateToken400'
+        
+      deprecated: false
+      security:
+        - bearer: []                  
+  /v1/device/profile/{deviceId}:
+    get:
+      tags:
+      - To fetch a device profile.
+      summary: To get device profile
+      description: This api is used to get device profile information
+           - The endpoint for **Device profile** is `/device/profile` 
+      operationId: Device Profile
+      parameters:
+        - name: deviceId
+          in: path
+          description: device id
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Device profile information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deviceProfileResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deviceProfile400'
+        
+      deprecated: false
+      security:
+        - bearer: []      
+  /v1/device/register/{deviceId}:
+    post:
+      tags:
+      - Device register
+      summary: To register a device
+      description: This api is used to register a device
+           - The endpoint for **Device register** is `/device/register` 
+      operationId: Device register
+      parameters:
+        - name: deviceId
+          in: path
+          description: device id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the dspec,userDeclaredLocation,ipLocation,channel,fcmToken,producer and first_access
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/deviceRegisterRequest"                        
+      responses:
+        200:
+          description: "Device register information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deviceRegisterResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deviceRegister400'
+        
+      deprecated: false
+      security:
+        - bearer: []              
+  /v1/bodh/platform/uploadScromContent:      
+    post:
+      tags:
+      -  Upload scrom content
+      summary: Upload scrom content data for bodh platform.
+      description: This api is used to  Upload scrom content data to bodh platform
+           - The endpoint for **bodh platform uploadScromContent** is `/bodh/platform/uploadScromContent` 
+      operationId:  Upload scrom content
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+
+            
+        - name: name
+          in: query
+          description: name
+          required: true
+          schema:
+            type: string
+            
+      requestBody:
+        description: >-
+            - The body payload comprises of scrom content data 
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                contentData:
+                  type: string
+                  format: csv
+                  
+      responses:
+        200:
+          description: "Upload scrom content"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/uploadScromContentResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/uploadScromContent400'
+        
+      deprecated: false
+      security:
+        - bearer: []              
+  /v1/bodh/request/middleware:
+     post:
+      tags:
+      - Middleware for Bodh requests
+      summary: bodh request middleware
+      description: This api is used to handle the bodh request
+           - The endpoint for **Request middleware** is `/request/middleware` 
+      operationId: middleware
+      
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the headers,body,method and url
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/middlewareRequest"                        
+      responses:
+        200:
+          description: "Middleware Information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/middlewareResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/middleware400'
+        
+      deprecated: false
+      security:
+        - bearer: []                    
+  
+components:
+  schemas:
+   
+    500Error:
+      type: object
+      properties:
+        result:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: Internal Server Error
+        
+    userActivate400Error:
+      type: object
+      properties:
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: body
+              param: 
+                type: string
+                example: userId
+              msg: 
+                type: string
+                example: required userId
+                
+    userInActivate400Error:
+      type: object
+      properties:
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: body
+              param: 
+                type: string
+                example: userId
+              msg: 
+                type: string
+                example: required userId                
+
+    userActive:
+      type: object
+      properties:
+        userid:
+          type: string
+          example: "dcdd40bf-6a95-49c3-81c3-2b000b870e38"
+  
+    userInActive:
+      type: object
+      properties:
+        userid:
+          type: string
+          example: "dcdd40bf-6a95-49c3-81c3-2b000b870e38"
+  
+    
+    userActiveResponse:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: "User activated successfully."
+        result:
+          type: object
+          properties:
+            response:
+              type: string
+              example: "SUCCESS"
+
+    userInActiveResponse:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: "User deactivated successfully."
+        result:
+          type: object
+          properties:
+            response:
+              type: string
+              example: "SUCCESS"     
+              
+    addUserToOrganisationRequest:
+      type: object
+      properties:
+        userId: 
+          type: string
+          example: "dcdd40bf-6a95-49c3-81c3-2b000b870e38"
+        organisationId: 
+          type: string
+          example: "0125747659358699520"
+        roles: 
+          type: array
+          items: 
+            type: string
+            example: "ORG_ADMIN"
+    
+    addUserToOrganisationResponse:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 200
+        message: 
+          type: string
+          example: "User added to organisation successfully."    
+          
+    addUserToOrganisation400:
+      type: object
+      properties:
+        message: 
+          type: string
+          example:  " Please provide userId or userExternalId,userProvider,userIdType" 
+
+          
+    createUserRequest: 
+      type: object
+      properties:
+        firstName: 
+          type: string
+          example: test
+        lastName: 
+          type: string
+          example: test
+        email: 
+          type: string
+          example: testUser12333@gmail.com
+        phoneNumber: 
+          type: string
+          example: 1234567890
+        userName: 
+          type: string
+          example: testUser33@1234
+        organisation: 
+          type: string
+          example: 0125747659358699520
+        roles: 
+          type: array
+          items: 
+            type: string
+            example: ORG_ADMIN
+        dateofbirth: 
+          type: string
+          example: 1994-0-01
+          
+    createUserResponse: 
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 200
+        message: 
+          type: string
+          example: User created successfully.
+        result: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              response: 
+                type: string
+                example: SUCCESS
+              userId: 
+                type: string
+                example: dcdd40bf-6a95-49c3-81c3-2b000b870e38
+                
+    createUser400: 
+      type: object
+      properties:
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: body
+              param: 
+                type: string
+                example: firstName
+              msg: 
+                type: string
+                example: required firstName
+    
+    getProfileResponse:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 200
+        result: 
+          type: object
+          properties: 
+            response: 
+              type: object
+              properties: 
+                rootOrgName: 
+                  type: string
+                  example: SLDEV
+                channel: 
+                  type: string
+                  example: SLDEV
+                updatedDate: 
+                  type: string
+                  example:  
+                flagsValue: 
+                  type: integer
+                  format: int32
+                  example: 2
+                id: 
+                  type: string
+                  example: 3125f88a-bf22-45f9-9311-2a55552657d6
+                recoveryEmail: 
+                  type: string
+                  example: 
+                identifier: 
+                  type: string
+                  example: 3125f88a-bf22-45f9-9311-2a55552657d6
+                thumbnail: 
+                  type: string
+                  example:  
+                profileVisibility: 
+                  type: object
+                  properties: 
+                    subject: 
+                      type: string
+                      example: private
+                    language: 
+                      type: string
+                      example: private
+                    avatar: 
+                      type: string
+                      example: private
+                    userName: 
+                      type: string
+                      example: public
+                    skills: 
+                      type: string
+                      example: private
+                    firstName: 
+                      type: string
+                      example: public
+                    badgeAssertions: 
+                      type: string
+                      example: private
+                    phone: 
+                      type: string
+                      example: private
+                    countryCode: 
+                      type: string
+                      example: private
+                    dob: 
+                      type: string
+                      example: private
+                    grade: 
+                      type: string
+                      example: private
+                    location: 
+                      type: string
+                      example: private
+                    email: 
+                      type: string
+                      example: private
+                updatedBy: 
+                  type: string
+                  example:  
+                registryId: 
+                  type: string
+                  example:  
+                rootOrgId: 
+                  type: string
+                  example: 01305447637218918413
+                prevUsedEmail: 
+                  type: string
+                  example: 
+                firstName: 
+                  type: string
+                  example: XXXXX
+                tncAcceptedOn: 
+                  type: string
+                  example:  
+                phone: 
+                  type: string
+                  example: 
+                dob: 
+                  type: string
+                  format: date
+                  example: 1947-08-15
+                currentLoginTime: 
+                  type: string
+                  example:  
+                userType: 
+                  type: string
+                  example: OTHER
+                status: 
+                  type: integer
+                  format: int32
+                  example: 1
+                lastName: 
+                  type: string
+                  example: kumar
+                tncLatestVersion: 
+                  type: string
+                  example: v1
+                gender: 
+                  type: string
+                  example: M
+                roles: 
+                  type: array
+                  items: 
+                    type: string
+                    example: PUBLIC,
+                isDeleted: 
+                  type: boolean
+                organisations: 
+                  type: array
+                  items: 
+                    type: object
+                    properties: 
+                      orgJoinDate: 
+                        type: string
+                        example: 2020-08-03 07:14:20:473+0000
+                      organisationId: 
+                        type: string
+                        example: 01307602653145497673
+                      approvalDate: 
+                        type: string
+                        example: 2020-08-03 07:14:20:473+0000
+                      isDeleted: 
+                        type: boolean
+                      hashTagId: 
+                        type: string
+                        example: 01307602653145497673
+                      roles: 
+                        type: array
+                        items: 
+                          type: string
+                          example: COURSE_MENTOR
+                      isRejected: 
+                        type: boolean
+                      id: 
+                        type: string
+                        example: 01307803178981785681
+                      isApproved: 
+                        type: boolean
+                      userId: 
+                        type: string
+                        example: 3125f88a-bf22-45f9-9311-2a55552657d6
+                rootOrg: 
+                  type: object
+                  properties: 
+                    description: 
+                      type: string
+                      example: Shikshalokam Development,
+                    updatedDate: 
+                      type: string
+                      example: 2020-07-31 11:55:45:804+0000
+                    isRootOrg: 
+                      type: boolean
+                    rootOrgId: 
+                      type: string
+                      example: 01305447637218918413
+                    imgUrl: 
+                      type: string
+                      example:  
+                    approvedDate: 
+                      type: string
+                      example:  
+                    orgTypeId: 
+                      type: string
+                      example:  
+                    homeUrl: 
+                      type: string
+                      example:  
+                    isDefault: 
+                      type: string
+                      example:  
+                    createdDate: 
+                      type: string
+                      example: 2020-07-01 00:38:06:141+0000
+                    parentOrgId: 
+                      type: string
+                      example:  
+                    createdBy: 
+                      type: string
+                      example:  
+                    hashTagId: 
+                      type: string
+                      example: 01305447637218918413
+                    noOfMembers: 
+                      type: string
+                      example:  
+                    status: 
+                      type: integer
+                      format: int32
+                      example: 1
+                defaultProfileFieldVisibility: 
+                  type: string
+                  example: private
+                profileSummary: 
+                  type: string
+                  example:  
+                phoneVerified: 
+                  type: boolean
+                recoveryPhone: 
+                  type: string
+                  example: 
+                avatar: 
+                  type: string
+                  example:  
+                userName: 
+                  type: string
+                  example: XXXXX
+                userId: 
+                  type: string
+                  example: 3125f88a-bf22-45f9-9311-2a55552657d6
+                promptTnC: 
+                  type: boolean
+                lastLoginTime: 
+                  type: string
+                  example:  
+                emailVerified: 
+                  type: boolean
+                createdDate: 
+                  type: string
+                  example: 2020-08-03 07:14:20:307+0000
+                createdBy: 
+                  type: string
+                  example: 7068c45d-ba9c-484e-a52c-20bbab139ca9
+                location: 
+                  type: string
+                  example:  
+                tncAcceptedVersion: 
+                  type: string
+                  example:  
+                  
+    getProfile400:
+      type: object
+      properties:
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: body
+              param: 
+                type: string
+                example: token
+              msg: 
+                type: string
+                example: Invalid value
+                
+    verifyRequest:
+            type: object
+            properties:
+                token: 
+                  type: string
+                  example: eyJhbGciOi.....   ....pmul5A
+                  
+                  
+    verifyResponse:
+       type: object
+       properties:
+        status: 
+          type: integer
+          example: 200
+        message: 
+          type: string
+          example: Token is valid.
+        result: 
+          type: object
+          properties: 
+            channel: 
+              type: string
+              example: SHIKSHALOKAM
+            createdBy: 
+              type: string
+              example: 193cd013-5d7b-4c76-a649-835888b93bb9
+            createdDate: 
+              type: string
+              example: 2018-10-24 16:45:31:634+0000
+            email: 
+              type: string
+              example: pa****@shikshalokam.dev
+            firstName: 
+              type: string
+              example: "Platform Admin"
+            identifier: 
+              type: string
+              example: "7068c45d-ba9c-484e-a52c-20bbab139ca9"
+            organisations: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  addedBy: 
+                    type: string
+                    example: 193cd013-5d7b-4c76-a649-835888b93bb9
+                  approvalDate: 
+                    type: string
+                    example: 2018-10-24 16:50:05:242+0000
+                  approvedBy: 
+                    type: string
+                    example: 193cd013-5d7b-4c76-a649-835888b93bb9
+                  hashTagId: 
+                    type: string
+                    example: 0125747659358699520
+                  id: 
+                    type: string
+                    example: 0126189555108741123
+                  isApproved: 
+                    type: boolean
+                  isDeleted: 
+                    type: boolean
+                  isRejected: 
+                    type: boolean
+                  organisationId: 
+                    type: string
+                    example: 0125747659358699520
+                  orgJoinDate: 
+                    type: string
+                    example: 2018-10-24 16:50:05:242+0000
+                  roles: 
+                    type: array
+                    items: 
+                      type: string
+                      example: LEAD_ASSESSOR
+                  userId: 
+                    type: string
+                    example: 7068c45d-ba9c-484e-a52c-20bbab139ca9
+            phone: 
+              type: string
+              example: "******0000"
+            profileVisibility: 
+              type: object
+              properties: 
+                phone: 
+                  type: string
+                  example: private
+                email: 
+                  type: string
+                  example: private
+            roles: 
+              type: array
+              items: 
+                type: string
+                example: PUBLIC
+            rootOrgId: 
+              type: string
+              example: 0125747659358699520
+            userId: 
+              type: string
+              example: 7068c45d-ba9c-484e-a52c-20bbab139ca9
+            userName: 
+              type: string
+              example: pa****              
+    
+    verify400:
+      type: object
+      properties:
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: body
+              param: 
+                type: string
+                example: token
+              msg: 
+                type: string
+                example: Invalid value
+                
+    listRoles:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Roles found successfully.
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              id: 
+                type: string
+                example: COURSE_MENTOR
+              name: 
+                type: string
+                example: Course Mentor
+    
+    listRoles400:
+      type: object
+      properties:
+        status: 
+          type: string
+          example: ERR_TOKEN_FIELD_MISSING
+        message: 
+          type: string
+          example: Required field token is missing
+        currentDate: 
+          type: string
+          example: 2021-02-04T10:43:05.139Z
+             
+    qrcodeRequest:
+      type: object
+      properties:
+        codes: 
+          type: array
+          items: 
+            type: string
+            example: N7W8L4
+            
+    qrcodeResponse:
+      type: object
+      properties:
+          status: 
+            type: integer
+            example: 200
+          message: 
+            type: string
+            example: Qr code pdfs generated successfully.
+          result: 
+            type: array
+            items: 
+              type: object
+              properties: 
+                code: 
+                  type: string
+                  example: N7W8L4
+                url: 
+                  type: string
+                  example: https://sl-bodh-storage.s3.amazonaws.com/courses/courseId/a.pdf           
+    qrcode400:
+      type: object
+      properties:
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: body
+              param: 
+                type: string
+                example: code
+              msg: 
+                type: string
+                example: required code
+                
+    qrCodeImage:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 200
+        message: 
+          type: string
+          example: Qr code image generated successfully.
+        result: 
+          type: object
+          properties: 
+            url: 
+              type: string
+              example: https://sl-bodh-storage.s3.amazonaws.com/courses/courseId
+              
+              
+    qrCodeImage400:
+      type: object
+      properties:
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: _id
+              msg: 
+                type: string
+                example: Unique Code is required
+                
+    assignRolesToOrganisationRequest:
+      type: object
+      properties:
+        userId: 
+          type: string
+          example: dcdd40bf-6a95-49c3-81c3-2b000b870e38
+        organisationId: 
+          type: string
+          example: 0125747659358699520
+        roles: 
+          type: array
+          items: 
+            type: string
+            example: ASSESSOR
+            
+    assignRolesToOrganisationResponse:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 200
+        message: 
+          type: string
+          example: User roles added to organisation  successfully.
+        result: 
+          type: object
+          properties: 
+            response: 
+              type: string
+              example: SUCCESS  
+    
+    assignRolesToOrganisation400:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: body
+              param: 
+                type: string
+                example: organisationId
+              msg: 
+                type: string
+                example: required organisationId
+                
+    organisationCreateRequest:
+      type: object
+      properties:
+        description: 
+          type: string
+          example: Test description value
+        externalId: 
+          type: string
+          example: ext1332sdddda2ww22
+        name: 
+          type: string
+          example: testing
+        email: 
+          type: string
+          example: abc@gmail.com
+        address: 
+          type: string
+          example: 1st block,2nd main jayanagar 
+          
+    organisationCreateResponse:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 200
+        message: 
+          type: string
+          example: Organisation created successfully.
+        result: 
+          type: object
+          properties: 
+            columns: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  type: 
+                    type: string
+                    example: column
+                  visible: 
+                    type: boolean
+                  label: 
+                    type: string
+                    example: organisation Name
+                  key: 
+                    type: string
+                    example: organisationName
+            data: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  organisationName: 
+                    type: string
+                    example: Mantra4Change
+                  description: 
+                    type: string
+                    example: ShikshaLokam Development
+                  status: 
+                    type: string
+                    example: Active
+                  noOfMembers: 
+                    type: integer
+                    example: 10        
+
+    organisationCreate400:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: body
+              param: 
+                type: string
+                example: description
+              msg: 
+                type: string
+                example: required description
+                
+    organisationDetailsResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Organisation details fetched successfully.
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            organisationId: 
+              type: string
+              example: 013014480583598080574
+            name: 
+              type: string
+              example: example
+            email: 
+              type: string
+              example: example@gmail.com
+            provider: 
+              type: string
+              example: shiksha
+            externalId: 
+              type: string
+              example: 013480583522346
+    
+    organisationDetails400:
+      type: object
+      properties:
+          status: 
+            type: integer
+            example: 400
+          message: 
+            type: array
+            items: 
+              type: object
+              properties: 
+                location: 
+                  type: string
+                  example: params
+                param: 
+                  type: string
+                  example: _id
+                msg: 
+                  type: string
+                  example: required organisationId
+            
+    organisationListResponse: 
+      type: object
+      properties:
+          message: 
+            type: string
+            example: Organisation list fetched successfully.
+          status: 
+            type: integer
+            format: int32
+            example: 200
+          result: 
+            type: array
+            items: 
+              type: object
+              properties: 
+                value: 
+                  type: string
+                  example: 0125747659358699520
+                label: 
+                  type: string
+                  example: ShikshaLokamDev
+                  
+    organisationList400: 
+      type: object
+      properties:
+        status: 
+          type: string
+          example: ERR_TOKEN_FIELD_MISSING
+        message: 
+          type: string
+          example: Required field token is missing
+        currentDate: 
+          type: string
+          example: 2021-02-05T05:53:45.489Z
+          
+    organisationUsersRequest:
+      type: object
+      properties:
+        organisationId: 
+          type: string
+          example: 0124487522476933120
+        userIds: 
+          type: array
+          items: 
+            type: string
+            example: 0130619432059781120
+
+    organisationUsersResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Organisation users list fetched successfully.
+        status: 
+          type: number
+          example: 200
+        result: 
+          type: object
+          properties: 
+            count: 
+              type: number
+              example: 1
+            content: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  lastName: 
+                    type: string
+                    example: Ali
+                  maskedPhone: 
+                    type: string
+                    example: "******6001"
+                  rootOrgName: 
+                    type: string
+                    example: ShikshaLokam
+                  roles: 
+                    type: array
+                    items: 
+                      type: string
+                      example: PUBLIC
+                  channel: 
+                    type: string
+                    example: SHIKSHALOKAM
+                  prevUsedPhone: 
+                    type: string
+                    example: 
+                  stateValidated: 
+                    type: boolean
+                  isDeleted: 
+                    type: boolean
+                  organisations: 
+                    type: array
+                    items: 
+                      type: object
+                      properties: 
+                        organisationId: 
+                          type: string
+                          example: 0124487522476933120
+                        orgName: 
+                          type: string
+                          example: ShikshaLokam
+                        roles: 
+                          type: array
+                          items: 
+                            type: string
+                            example: PUBLIC
+                        userId: 
+                          type: string
+                          example: dc0f58f3-5ef0-4785-a2d7-da45cc087f9d
+                        isDeleted: 
+                          type: boolean
+                        hashTagId: 
+                          type: string
+                          example: 0124487522476933120
+                        id: 
+                          type: string
+                          example: 0130619432059781120
+                        orgjoindate: 
+                          type: string
+                          example: 2020-07-11 13:48:31:493+0000
+                  flagsValue: 
+                    type: number
+                    example: 3
+                  maskedEmail: 
+                    type: string
+                    example: ab***@optit.co
+                  id: 
+                    type: string
+                    example: dc0f58f3-5ef0-4785-a2d7-da45cc087f9d
+                  email: 
+                    type: string
+                    example: "Gm0bgWoAELJd03EHpz1OmuaLEtMb+qDa6+GDZLJmJ1PYPOznCCEMUrkIgvzAAXaIHB5qHrFv10MC
+      rqIrRckLBO5KKLYw3q2MWX7dsVP3Wh5klDnTrpffcZLmbbivUybv6xWeE6cSZXpK1WX3nIXBxWkc
+      sXJU/HnjLA/uVv6oroZj9AydpsoqcVKsAopPq/P8PjXEGhofEi1Kd+UdRICJQw=="
+                  identifier: 
+                    type: string
+                    example: dc0f58f3-5ef0-4785-a2d7-da45cc087f9d
+                  rootOrgId: 
+                    type: string
+                    example: 0124487522476933120
+                  firstName: 
+                    type: string
+                    example: Abdul
+                  emailVerified: 
+                    type: boolean
+                  tncAcceptedOn: 
+                    type: string
+                    example: 2020-07-11T13:50:53.853Z
+                  createdDate: 
+                    type: string
+                    example: 2020-07-11 13:48:30:503+0000
+                  createdBy: 
+                    type: string
+                    example: 19be09a0-8a2b-4833-8d74-46a64a40fa82
+                  userType: 
+                    type: string
+                    example: OTHER
+                  tncAcceptedVersion: 
+                    type: string
+                    example: v1
+                  status: 
+                    type: number
+                    example: 1 
+                  
+    organisationUsers400:
+      type: object
+      properties:
+        organisationId: 
+          type: string
+          example: 0124487522476933120
+        userIds: 
+          type: array
+          items: 
+            type: string
+            example: 0130619432059781120  
+            
+    organisationActivateResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Organisation activated successfully.
+        status: 
+          type: integer
+          example: 200
+        result: 
+          type: object
+          properties: 
+            response: 
+              type: string
+              example: SUCCESS
+
+    organisationActivate400:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: string
+          example: Mandatory parameter organisationId is missing.  
+          
+    organisationDeactivateResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Organisation de-activated successfully.
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            response: 
+              type: string
+              example: SUCCESS         
+          
+    organisationDeactivate400:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: string
+          example: Mandatory parameter organisationId is missing.            
+               
+    organisationRemoveUserRequest:
+      type: object
+      properties:
+        organisationId: 
+          type: string
+          example: 2423423iuo2u34oi2u4
+        userId: 
+          type: string
+          example: e21312h3219837
+          
+    organisationRemoveUserResponse:
+      type: object
+      properties:   
+        message: 
+          type: string
+          example: user removed from organisation successfully.
+        status: 
+          type: integer
+          example: 200
+        result: 
+          type: object
+          properties: 
+            response: 
+              type: string
+              example: success
+            
+    organisationRemoveUser400:
+      type: object
+      properties: 
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: body
+              param: 
+                type: string
+                example: userId
+              msg: 
+                type: string
+                example: required userId  
+                
+    organisationUpdateRequest:
+      type: object
+      properties: 
+        name: 
+          type: string
+          example: organisation name
+        email: 
+          type: string
+          example: abc@gmail.com
+        description: 
+          type: string
+          example: new organisation
+        externalId: 
+          type: string
+          example: external123
+        organisationId: 
+          type: string
+          example: "013014480583598080574"
+      
+    organisationUpdateResponse:
+          type: object
+          properties: 
+            message: 
+              type: string
+              example: Organisation updated successfully.
+            status: 
+              type: integer
+              format: int32
+              example: 200
+            result: 
+              type: object
+              properties: 
+                organisationId: 
+                  type: string
+                  example: 013014480583598080574
+                response: 
+                  type: string
+                  example: SUCCESS
+                  
+    organisationUpdate400:
+          type: object
+          properties:   
+            status: 
+              type: integer
+              example: 400
+            message: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  location: 
+                    type: string
+                    example: body
+                  param: 
+                    type: string
+                    example: organisationId
+                  msg: 
+                    type: string
+                    example: required organisationId
+              
+    filtersListResponse:
+      type: object
+      properties:   
+        message: 
+          type: string
+          example: Filters fetched successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            medium: 
+              type: array
+              items: 
+                type: object
+                properties: 
+                  label: 
+                    type: string
+                    example: English
+                  value: 
+                    type: string
+                    example: english
+    
+    filtersList400:
+      type: object
+      properties:  
+        status: 
+          type: string
+          example: ERR_REQUEST_FIELDS_MISSING
+        message: 
+          type: string
+          example: Token and Internal access token both are required field
+        currentDate: 
+          type: string
+          example: 2021-02-05T07:44:54.768Z
+          
+    learningResourceRequest:
+      type: object
+      properties: 
+        filters: 
+          type: object
+          properties: 
+            board: 
+              type: array
+              items: 
+                type: string
+                example: SLDEV
+            gradeLevel: 
+              type: array
+              items: 
+                type: string
+                example: Class 1
+            medium: 
+              type: array
+              items: 
+                type: string
+                example: Science
+            subject: 
+              type: array
+              items: 
+                type: string
+                example: kannada
+      
+    learningResourceResponse:
+        type: object
+        properties:  
+          message: 
+            type: string
+            example: Learning resources found successfully
+          status: 
+            type: integer
+            example: 200
+          result: 
+            type: array
+            items: 
+              type: object
+              properties: 
+                display: 
+                  type: string
+                  example: name:en:Popular Worksheethi:लोकप्रिय वर्कशीट
+                count: 
+                  type: integer
+                  example: 0
+                description: 
+                  type: string
+                  description: ""
+                index: 
+                  type: integer
+                  example: 1
+                sectionDataType: 
+                  type: string
+                  example: content
+                imgUrl: 
+                  type: string
+                  example: ""
+                resmsgId: 
+                  type: string
+                  example: e6c90f20-b5f6-11ea-aa64-cf82d77f4119
+                contents: 
+                  type: string
+                  example: ""
+                searchQuery: 
+                  type: string
+                  example: request:query:filters:language:[English]contentType:[Worksheet]limit:10sort_by:lastUpdatedOn:desc
+                name: 
+                  type: string
+                  example: Popular Worksheet
+                id: 
+                  type: string
+                  example: 01228383082462412826
+                apiId: 
+                  type: string
+                  example: api.content.search
+                group: 
+                  type: integer
+                  example: 1        
+                  
+    learningResource400:
+        type: object
+        properties:
+          status: 
+            type: string
+            example: ERR_REQUEST_FIELDS_MISSING
+          message: 
+            type: string
+            example: Token and Internal access token both are required field
+          currentDate: 
+            type: string
+            example: "2021-02-05T08:01:18.310Z"
+            
+    generateTokenRequest:
+        type: object
+        properties:
+          username: 
+            type: string
+            example: 22075016134
+          password: 
+            type: string
+            example: example@123@PJ111
+            
+    generateToken400:
+        type: object
+        properties:
+          status: 
+            type: integer
+            example: 400
+          message: 
+            type: string
+            example: Invalid Credentials.        
+
+    generateTokenResponse:
+        type: object
+        properties:
+          message: 
+            type: string
+            example: User token fetched successfully.
+          status: 
+            type: integer
+            format: int32
+            example: 200
+          result: 
+            type: object
+            properties: 
+              access_token: 
+                type: string
+                example: eyJhbGciOiJSUzI1NiIs...       ...6zsxP6QhxIpJew
+              expires_in: 
+                type: integer
+                format: int32
+                example: 86400
+              refresh_expires_in: 
+                type: integer
+                format: int32
+                example: 0
+              refresh_token: 
+                type: string
+                example: eyJhbGciOiJSU.... ..8SSeflwQ
+              token_type: 
+                type: string
+                example: bearer
+              not-before-policy: 
+                type: integer
+                format: int32
+                example: 1548955037
+              session_state: 
+                type: string
+                example: e28a35bb-adf5-4391-8670-a2bff2b9a54f   
+                
+    deviceProfileResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Device profile fetched successfully.
+        status: 
+          type: integer
+          example: 200
+        result: 
+          type: object
+          properties: 
+            dspec: 
+              type: object
+              properties: 
+                os: 
+                  type: string
+                  example: Android 10
+                make: 
+                  type: string
+                  example: Google Android SDK built for x86
+                id: 
+                  type: string
+                  example: b5929a4f5389bb4d3eb1c84fc75670677dcac4c0
+                idisk: 
+                  type: number
+                  example: 774.89
+                edisk: 
+                  type: number
+                  example: 774.89
+                scrn: 
+                  type: number
+                  example: 5.25
+                camera: 
+                  type: string
+                  example: 
+                cpu: 
+                  type: string
+                  example: "abi: x86"
+                sims: 
+                  type: integer
+                  format: int32
+                  example: -1
+                webview: 
+                  type: string
+                  example: 74.0.3729.185
+            channel: 
+              type: string
+              example: 01305447637218918413
+            fcmToken: 
+              type: string
+              example: dWquWc00sS8:APA91bEsVm5sR_j1ojaIHt1nVDAgjzrnpTgqaZrhB3gZWGkUPojsSJz_mkp7Jtk3tJA7Cjo__agZp1ypGeElqxUEU6TRcVzD8e3phWeCRJ6dx-6gOgrfCq3Y0r-RbEwMd5cFtOhKcJr_
+            producer: 
+              type: string
+              example: org.shikshalokam.bodh.dev
+            first_access: 
+              type: integer
+              format: int64
+              example: 1595906837894    
+  
+    deviceProfile400:
+      type: object
+      properties:    
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: _id
+              msg: 
+                type: string
+                example: required device id      
+                
+    deviceRegisterRequest:
+      type: object
+      properties: 
+          request: 
+            type: object
+            properties: 
+              dspec: 
+                type: object
+                properties: 
+                  os: 
+                    type: string
+                    example: Android 10
+                  make: 
+                    type: string
+                    example: Google Android SDK built for x86
+                  id: 
+                    type: string
+                    example: b5929a4f5389bb4d3eb1c84fc75670677dcac4c0
+                  idisk: 
+                    type: number
+                    example: 774.89
+                  edisk: 
+                    type: number
+                    example: 774.89
+                  scrn: 
+                    type: number
+                    example: 5.25
+                  camera: 
+                    type: string
+                    example: 
+                  cpu: 
+                    type: string
+                    example: "abi: x86 processor\t: 0"
+                  sims: 
+                    type: integer
+                    format: int32
+                    example: -1
+                  webview: 
+                    type: string
+                    example: 74.0.3729.185
+              userDeclaredLocation: 
+                type: object
+                properties: 
+                  state: 
+                    type: string
+                    example: Karnataka
+                  district: 
+                    type: string
+                    example: Bengaluru Urban
+              ipLocation: 
+                type: object
+                properties: 
+                  state: 
+                    type: string
+                    example: Karnataka
+                  district: 
+                    type: string
+                    example: Bengaluru Urban
+              channel: 
+                type: string
+                example: 01305447637218918413
+              fcmToken: 
+                type: string
+                example: dWquWc00sS8:APA91bEsVm5sR_j1ojaIHt1nVDAgjzrnpTgqaZrhB3gZWGkUPojsSJz_mkp7Jtk3tJA7Cjo__agZp1ypGeElqxUEU6TRcVzD8e3phWeCRJ6dx-6gOgrfCq3Y0r-RbEwMd5cFtOhKcJr_
+              producer: 
+                type: string
+                example: org.shikshalokam.bodh.dev
+              first_access: 
+                type: integer
+                example: 1595906837894
+    
+    deviceRegisterResponse:
+      type: object
+      properties: 
+        message: 
+          type: string
+          example: Device registered successfully.
+        status: 
+          type: integer
+          format: int32
+          example: 200
+    
+    deviceRegister400:
+      type: object
+      properties:    
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: _id
+              msg: 
+                type: string
+                example: required device id  
+                
+    uploadScromContentResponse:
+      type: object
+      properties:        
+        message: 
+          type: string
+          example: Successfully uploaded content
+        status: 
+          type: integer
+          example: 200
+        result: 
+          type: object
+          properties: 
+            contentId: 
+              type: string
+              example: do_31301019283286425621481
+            contentUrl: 
+              type: string
+              example: https://ekstep-public-prod.s3-ap-south-1.amazonaws.com/content/do_31301019283286425621481/artifact/nvc-part-1_1588158308898.zip
+
+    
+    uploadScromContent400:
+      type: object
+      properties:        
+        status: 
+          type: integer
+          format: int32
+          example: 400
+        message: 
+          type: string
+          example: Required content file name.
+          
+    middlewareRequest:
+      type: object
+      properties:  
+        url: 
+          type: string
+          example: 
+        method: 
+          type: string
+          example: GET
+        headers: 
+          type: object
+          properties: 
+            X-Channel-Id: 
+              type: string
+              example: 12143123
+            Content-Type: 
+              type: string
+              example: application/json
+        body: 
+          type: object
+          properties: 
+            request: 
+              type: object
+              properties: 
+                createdFor: 
+                  type: array
+                  items: 
+                    type: string
+                    example: abc
+            mode: 
+              type: string
+              example: as
+            name: 
+              type: string
+              example: ab
+            source: 
+              type: string
+              example: asdl
+    
+    middlewareResponse:
+      type: object
+      properties:     
+        message: 
+          type: string
+          example: Successfully fetched bodh request data
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            id: 
+              type: string
+              example: 
+            ver: 
+              type: string
+              example: 
+            ts: 
+              type: string
+              example: 
+            params: 
+              type: object
+              properties: 
+                resmsgid: 
+                  type: string
+                  example: 
+                msgid: 
+                  type: string
+                  example: 
+                status: 
+                  type: string
+                  example: successful
+                err: 
+                  type: integer
+                  format: nullable
+                errmsg: 
+                  type: integer
+                  format: nullable
+            responseCode: 
+              type: string
+              example: OK
+          
+    
+    middleware400:
+      type: object
+      properties: 
+        status: 
+          type: integer
+          format: int32
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: body
+              param: 
+                type: string
+                example: url
+              msg: 
+                type: string
+                example: required url                
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header    
+  

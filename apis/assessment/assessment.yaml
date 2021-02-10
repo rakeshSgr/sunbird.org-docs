@@ -1,0 +1,441 @@
+openapi: 3.0.1
+info:
+  title: Assessment Service API(s)
+  termsOfService: 'https://github.com/project-sunbird/sunbird-commons/blob/master/LICENSE'
+  description: >-
+    - The Sunrdb Service is intermediate service to access the sunbird service api's. Apis perform operations related to user management, organisation management and learning resources etc 
+    
+    - The URL for sunbird service API(s) is `sunbird/api`
+
+    - <b>Note:</b> These resources can be used in other services 
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://staging.open-sunbird.org/sunbird/api
+  variables: {}
+paths: 
+   /v2/observations/assessment/{observationId}:
+    get:
+      tags:
+      - Observations Details
+      summary: To get observations details
+      description: This api is used for to get observations details
+           - The endpoint for **Observations assessment V2** is `/observations/assessment/`  
+      operationId: To Activate User
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: entityId
+          required: true
+          description: Entity Id
+          schema:
+            type: string 
+        - in: query
+          name: submissionNumber
+          required: true
+          description: Submission Number
+          schema: 
+            type: string
+        - in: path
+          name: observationId
+          required: true
+          description: Observation Id
+          schema:
+            type: string            
+      responses:
+        200:
+          description: "Observation assessment information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsAssessmentResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observations400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+   /v1/observations/create:
+    post:
+      tags:
+      - Create Observations
+      summary: To Create Observations
+      description: This api is used for to get observations details
+           - The endpoint for **Observations Create V2** is `/observations/create/`  
+      operationId: To create observation
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationCreateRequest"
+              
+      responses:
+        200:
+          description: "Observation assessment information"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationsAssessmentResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observations400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  
+components:
+  schemas:
+   
+    observations400Error:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: object
+            properties: 
+              location: 
+                type: string
+                example: params
+              param: 
+                type: string
+                example: _id
+              msg: 
+                type: string
+                example: required observation id
+          
+    500Error:
+            type: object
+            properties:
+              result:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: Internal Server Error
+              
+    observationsAssessmentResponse:
+            type: object
+            properties:
+              evidences: 
+                type: array
+                items: 
+                  type: object
+                  properties: 
+                    code: 
+                      type: string
+                      example: BL
+                    sections: 
+                      type: array
+                      items: 
+                        type: object
+                        properties: 
+                          code: 
+                            type: string
+                            example: SQ
+                          questions: 
+                            type: array
+                            items: 
+                              type: object
+                              properties: 
+                                _id: 
+                                  type: string
+                                  example: 
+                                question: 
+                                  type: string
+                                  example: 
+                                options: 
+                                  type: string
+                                  example: 
+                                children: 
+                                  type: string
+                                  example: 
+                                questionGroup: 
+                                  type: string
+                                  example: 
+                                fileName: 
+                                  type: string
+                                  example: 
+                                instanceQuestions: 
+                                  type: string
+                                  example: 
+                                deleted: 
+                                  type: string
+                                  example: 
+                                tip: 
+                                  type: string
+                                  example: 
+                                externalId: 
+                                  type: string
+                                  example: 
+                                visibleIf: 
+                                  type: string
+                                  example: 
+                                file: 
+                                  type: string
+                                  example: 
+                                responseType: 
+                                  type: string
+                                  example: pageQuestions
+                                validation: 
+                                  type: string
+                                  example: 
+                                page: 
+                                  type: string
+                                  example: p1
+                                showRemarks: 
+                                  type: string
+                                  example: 
+                                isCompleted: 
+                                  type: string
+                                  example: 
+                                remarks: 
+                                  type: string
+                                  example: 
+                                value: 
+                                  type: string
+                                  example: 
+                                canBeNotApplicable: 
+                                  type: string
+                                  example: 
+                                usedForScoring: 
+                                  type: string
+                                  example: 
+                                modeOfCollection: 
+                                  type: string
+                                  example: 
+                                questionType: 
+                                  type: string
+                                  example: 
+                                accessibility: 
+                                  type: string
+                                  example: 
+                                updatedAt: 
+                                  type: string
+                                  example: 
+                                createdAt: 
+                                  type: string
+                                  example: 
+                                __v: 
+                                  type: string
+                                  example: 
+                                evidenceMethod: 
+                                  type: string
+                                  example: 
+                                payload: 
+                                  type: string
+                                  example: 
+                                startTime: 
+                                  type: string
+                                  example: 
+                                endTime: 
+                                  type: string
+                                  example: 
+                                pageQuestions: 
+                                  type: array
+                                  items: 
+                                    type: object
+                                    properties: 
+                                      _id: 
+                                        type: string
+                                        example: 5be4e40e9a14ba4b5038dcfb
+                                      question: 
+                                        type: array
+                                        items: 
+                                          type: string
+                                          example: "Are all empty rooms and terrace areas locked securely?"
+                                      options: 
+                                        type: array
+                                        items: 
+                                          type: object
+                                          properties: 
+                                            value: 
+                                              type: string
+                                              example: R1
+                                            label: 
+                                              type: string
+                                              example: None
+                                      questionGroup: 
+                                        type: array
+                                        items: 
+                                          type: string
+                                          example: A1
+                                      deleted: 
+                                        type: boolean
+                                      tip: 
+                                        type: string
+                                        example: 
+                                      externalId: 
+                                        type: string
+                                        example: LW/SS/22
+                                      visibleIf: 
+                                        type: string
+                                        example: 
+                                      file: 
+                                        type: string
+                                        example: 
+                                      responseType: 
+                                        type: string
+                                        example: radio
+                                      validation: 
+                                        type: object
+                                        properties: 
+                                          required: 
+                                            type: boolean
+                                      page: 
+                                        type: string
+                                        example: p1
+                                      showRemarks: 
+                                        type: boolean
+                                      isCompleted: 
+                                        type: boolean
+                                      remarks: 
+                                        type: string
+                                        example: 
+                                      value: 
+                                        type: string
+                                        example: 
+                                      canBeNotApplicable: 
+                                        type: string
+                                        example: false
+                                      usedForScoring: 
+                                        type: string
+                                        example: 
+                                      modeOfCollection: 
+                                        type: string
+                                        example: onfield
+                                      questionType: 
+                                        type: string
+                                        example: auto
+                                      accessibility: 
+                                        type: string
+                                        example: local
+                                      updatedAt: 
+                                        type: string
+                                        example: 2018-11-09T01:34:06.839Z
+                                      createdAt: 
+                                        type: string
+                                        example: 2018-11-09T01:34:06.839Z
+                                      __v: 
+                                        type: number
+                                        example: 0
+                                      evidenceMethod: 
+                                        type: string
+                                        example: LW
+                                      payload: 
+                                        type: object
+                                        properties: 
+                                          criteriaId: 
+                                            type: string
+                                            example: 5be1616549e0121f01b2180c
+                                          responseType: 
+                                            type: string
+                                            example: radio
+                                          evidenceMethod: 
+                                            type: string
+                                            example: LW
+                                          rubricLevel: 
+                                            type: string
+                                            example: 
+                                      startTime: 
+                                        type: string
+                                        example: 
+                                      endTime: 
+                                        type: string
+                                        example: 
+            
+                            
+                userActivate400Error:
+                  type: object
+                  properties:
+                    message: 
+                      type: array
+                      items: 
+                        type: object
+                        properties: 
+                          location: 
+                            type: string
+                            example: body
+                          param: 
+                            type: string
+                            example: userId
+                          msg: 
+                            type: string
+                            example: required userId                
+                            
+    observationCreateRequest:
+      type: object
+      properties:
+        data: 
+          type: object
+          properties: 
+            name: 
+              type: string
+              example: observation
+            description: 
+              type: string
+              example: school observation
+            startDate: 
+              type: string
+              example: 2018-11-09T01:34:06.839Z
+            endDate: 
+              type: string
+              example: 2018-11-09T01:34:06.839Z
+            status: 
+              type: string
+              example: draft
+            entities: 
+              type: array
+              items: 
+                type: string
+                example: 5beaa888af0065f0e0a10515
+                
+    
+  securitySchemes:
+    bearer:
+      type: apiKey
+      name: Authorization
+      in: header    
+  
