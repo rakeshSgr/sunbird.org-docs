@@ -589,6 +589,210 @@ paths:
       deprecated: false
       security:
         - bearer: []
+  /v1/observations/updateEntities/{observationId}:
+    post:
+      tags:
+      - Map entities to observations
+      summary: To map entities to observations
+      description: This api is used for to update observations entities
+           - The endpoint for **Observations updateEntities V1** is `/observations/updateEntities/`  
+      operationId: To map entities
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationId
+          required: true
+          description: Observation Id
+          schema:
+            type: string 
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updateEntitiesRequest"
+      
+      responses:
+        200:
+          description: "regarding either entity is added to observation or not."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateEntitiesResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observations400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+      - To remove entities from observations
+      summary: To map entities to observations
+      description: This api is used for to remove observations entities
+           - The endpoint for **Observations updateEntities V1** is `/observations/updateEntities/`  
+      operationId: To update entities
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationId
+          required: true
+          description: Observation Id
+          schema:
+            type: string 
+      
+      responses:
+        200:
+          description: "regarding either entity is removed from observation or not."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateEntitiesDeleteResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observations400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/observationSubmissions/update/{observationSubmissionId}:
+    post:
+      tags:
+      - To Update Observation Submission
+      summary: Api is used to Update Observation Submission
+      description: This api is used for to update observation submission details
+           - The endpoint for **observationSubmissions update V1** is `/observationSubmissions/update/`  
+      operationId: Update Observation Submission
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationSubmissionId
+          required: true
+          description: observationSubmissionId
+          schema:
+            type: string 
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/observationSubmissionsUpdateRequest"
+      
+      responses:
+        200:
+          description: "regarding either to update observation submission"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationSubmissionsUpdateResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observations400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+        
+    delete:
+      tags:
+      - To remove observation submission
+      summary: To remove observation submission
+      description: This api is used for to delete observations observation submissions
+           - The endpoint for **observationSubmissions update V1** is `/observationSubmissions/update/`  
+      operationId: To  remove observation submission
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: observationSubmissionId
+          required: true
+          description: observationSubmissionId
+          schema:
+            type: string 
+      
+      responses:
+        200:
+          description: "regarding either to remove observation submission"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observationSubmissionsDeleteResponse'
+                
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observations400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+
 components:
   schemas:
    
@@ -1484,7 +1688,66 @@ components:
                 type: string
                 example: "2019-09-27T10:24:57.182Z"
 
-      
+    updateEntitiesResponse:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: string
+          example: Entity Added successfully.
+          
+    updateEntitiesDeleteResponse:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: string
+          example: Entity Removed successfully.
+    
+    updateEntitiesRequest:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 400
+        message: 
+          type: array
+          items: 
+            type: string
+            example: "5beaa888af0065f0e0a10515"
+
+    observationSubmissionsUpdateRequest:
+      type: object
+      properties:
+        title: 
+          type: string
+          example: Observation Submission Title
+          
+    observationSubmissionsUpdateResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Observation submission updated successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+    
+    observationSubmissionsDeleteResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Observation submission removed successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200      
       
   securitySchemes:
     bearer:
