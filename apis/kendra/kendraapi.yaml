@@ -253,6 +253,112 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/500Error'
+  /v1/solutions/targetedEntity/{solutionId}:
+    post:
+      tags:
+      - Targeted entities in a solution.
+      summary: To get targeted entity in solution.
+      description: This api is used for to get targeted entities in a solution
+           - The endpoint for **solutions targetedEntity V1** is `/solutions/targetedEntity/`  
+      operationId: To map entities
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: solutionId
+          required: true
+          description: solution Id
+          schema:
+            type: string 
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/targetedEntityRequest"
+      
+      responses:
+        200:
+          description: "the response contains targeted entities"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/targetedEntityResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
+  /v1/cloud-services/files/preSignedUrls:
+    post:
+      tags:
+      - Get signed URL.
+      summary: To get signed urls from cloud services
+      description: This api is used for to get presigned urls from cloud services
+           - The endpoint for **cloud-services files preSignedUrls V1** is `/cloud-services/files/preSignedUrls`  
+      operationId: to get presigned
+      parameters:
+        - name: X-authenticated-user-token
+          in: header
+          description: Represents the authorized User token to execute the API.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+            - The body payload comprises of the access token
+            - The body parameter refers to the format of the request, the request body (payload) takes the following media types to 
+              payload:
+                json
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/preSignedUrlsRequest"
+      
+      responses:
+        200:
+          description: "The signed url response"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/preSignedUrlsResponse'
+           
+        500:
+          description: "'INTERNAL SERVER ERROR. We track these errors automatically and try to set it right at the earliest. Try refreshing the page. If the problem persists contact us at info@sunbird.org.'"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500Error'
+        400:
+          description: 'BAD REQUEST. The operation failed ! The possible reason for failure is that you may have missed providing input for a mandatory parameter.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Error'
+        
+      deprecated: false
+      security:
+        - bearer: []
 components:
   schemas:
     CreateUserRequestBody:
@@ -658,7 +764,97 @@ components:
             rootOrganisations: [
               01305447637218918413
               ]
-            
+
+    targetedEntityRequest:
+      type: object
+      properties:
+        state: 
+          type: string
+          example: bc75cc99-9205-463e-a722-5326857838f8
+        district: 
+          type: string
+          example: b54a5c6d-98be-4313-af1c-33040b1703aa
+        school: 
+          type: string
+          example: 2a128c91-a5a2-4e25-aa21-3d9196ad8203
+
+    targetedEntityResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: Targeted entity in solution fetched successfully
+        status: 
+          type: integer
+          format: int32
+          example: 200
+        result: 
+          type: object
+          properties: 
+            _id: 
+              type: string
+              example: 5fd098e2e049735a86b748ad
+            entityType: 
+              type: string
+              example: district
+            metaInformation: 
+              type: object
+              properties: 
+                name: 
+                  type: string
+                  example: VIZIANAGARAM
+                  
+    preSignedUrlsRequest:
+        type: object
+        properties:
+          payload: 
+            type: object
+            properties: 
+              5f72f9998925ec7c60f79a91: 
+                type: object
+                properties: 
+                  files: 
+                    type: array
+                    items: 
+                      type: string
+                      example: uploadFile.jpg
+          ref: 
+            type: string
+            example: survey
+        
+    preSignedUrlsResponse:
+        type: object
+        properties:
+          message: 
+            type: string
+            example: File upload urls generated successfully.
+          status: 
+            type: integer
+            format: int32
+            example: 200
+          result: 
+            type: object
+            properties: 
+              5f72f9998925ec7c60f79a91: 
+                type: object
+                properties: 
+                  files: 
+                    type: array
+                    items: 
+                      type: object
+                      properties: 
+                        file: 
+                          type: string
+                          example: uploadFile.jpg
+                        url: 
+                          type: string
+                          example: https://storage.googleapis.com/sl-dev-storage/01c04166-a65e-4e92-a87b-a9e4194e771d/5f72f9998925ec7c60f79a91/cd6763c9-a64a-4241-9907-4365970e8d11_uploadFile.jpg?GoogleAccessId=sl-dev-storage%40shikshalokam.iam.gserviceaccount.com&Expires=1605698490&Signature=ej6WHNOyx6EvUbAi81pDcYb3YqM7dkAhNT1Ktsf%2FTiRhwL%2ByhS89E1zRspIYlVOutlzoZXgRAl%2Fd0y%2BQcdryWYgfVAKAZmJVZtK3oVisLxhkFCKYeHAbzZ%2FadkCXdU3e1AVJGyRvKoN04Yr84%2BIa%2F1ApszOYDmVT%2Fn%2FOi4JSScbvzhe82bSe5xEr%2FPDwDq48%2FKgUhAc0faP%2FlAA2Wf7V1Ifuxc3quw9OpzvND8CKuugXZ%2FDZ6mhF0O80IXwP%2BFJOn4u9ydHqwXM3zDRDOO0WMh6VBLuvRFBRwJsrJG3v5zZMw0r5cYOIvkW4Tqo%2FefpXUDsvCVBTlZ9zBEdwx2Jshw%3D%3D
+                        payload: 
+                          type: object
+                          properties: 
+                            sourcePath: 
+                              type: string
+                              example: 01c04166-a65e-4e92-a87b-a9e4194e771d/5f72f9998925ec7c60f79a91/cd6763c9-a64a-4241-9907-4365970e8d11_uploadFile.jpg
       
   
   securitySchemes:
